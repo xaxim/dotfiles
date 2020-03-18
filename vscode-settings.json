@@ -1,0 +1,16 @@
+{
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 13,
+    "editor.letterSpacing": 0.2,
+    "editor.fontLigatures": true,
+    "editor.renderControlCharacters": true,
+    "editor.rulers": [
+        120,
+        140,
+    ],
+    "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+}
