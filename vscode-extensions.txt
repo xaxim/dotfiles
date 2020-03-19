@@ -1,0 +1,11 @@
+aeschli.vscode-css-formatter
+Angular.ng-template
+CoenraadS.bracket-pair-colorizer-2
+eamodio.gitlens
+eg2.vscode-npm-script
+johnpapa.vscode-peacock
+ms-vscode.vscode-typescript-tslint-plugin
+pflannery.vscode-versionlens
+PKief.material-icon-theme
+VisualStudioExptTeam.vscodeintellicode
+WakaTime.vscode-wakatime
