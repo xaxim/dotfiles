@@ -1,0 +1,11 @@
+gdbm
+gradle
+nvm
+openjdk
+openssl
+openssl@1.1
+python
+readline
+sqlite
+trash
+xz
