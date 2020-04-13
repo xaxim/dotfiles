@@ -1,11 +1,12 @@
-aeschli.vscode-css-formatter
-Angular.ng-template
-CoenraadS.bracket-pair-colorizer-2
-eamodio.gitlens
-eg2.vscode-npm-script
-johnpapa.vscode-peacock
-ms-vscode.vscode-typescript-tslint-plugin
-pflannery.vscode-versionlens
-PKief.material-icon-theme
-VisualStudioExptTeam.vscodeintellicode
-WakaTime.vscode-wakatime
+code --install-extension aeschli.vscode-css-formatter
+code --install-extension Angular.ng-template
+code --install-extension berublan.vscode-log-viewer
+code --install-extension CoenraadS.bracket-pair-colorizer-2
+code --install-extension eamodio.gitlens
+code --install-extension eg2.vscode-npm-script
+code --install-extension johnpapa.vscode-peacock
+code --install-extension ms-vscode.vscode-typescript-tslint-plugin
+code --install-extension pflannery.vscode-versionlens
+code --install-extension PKief.material-icon-theme
+code --install-extension VisualStudioExptTeam.vscodeintellicode
+code --install-extension WakaTime.vscode-wakatime
