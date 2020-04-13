@@ -1,7 +1,12 @@
 Chrome
+Magnet
+Xcode
+Brew
 Slack
-Office.com
 OneDrive
+Office.com
 Sourcetree
 Adobe Acrobat Reader DC
 Kindle
+AdoptOpenJDK
+Android Studio
