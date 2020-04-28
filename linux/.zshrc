@@ -105,6 +105,41 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Ionic Dev
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+
+# avdmanager, sdkmanager
+export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+
+# adb, logcat
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+
+# emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+
+# apksigner, zipalign
+export PATH=$PATH:$ANDROID_SDK_ROOT/build-tools/29.0.3
+
+###-begin-ionic-completion-###
+
+if type compdef &>/dev/null; then
+  __ionic() {
+    compadd -- $(ionic completion -- "${words[@]}" 2>/dev/null)
+  }
+
+  compdef __ionic ionic
+fi
+
+###-end-ionic-completion-###
+
+alias zs='source ~/.zshrc'
+alias refreshenv='zs'
+
 autoload -Uz compinit
 compinit
 # Completion for kitty
