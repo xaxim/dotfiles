@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Spring Tools
+Comment=Spring Tool Suite
+Exec=/home/xaxim/.local/sts-4.6.1.RELEASE/SpringToolSuite4
+Icon=/home/xaxim/.local/sts-4.6.1.RELEASE/icon.xpm
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Development;IDE;Java;
