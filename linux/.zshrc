@@ -139,6 +139,7 @@ fi
 
 alias zs='source ~/.zshrc'
 alias refreshenv='zs'
+alias update='git -C $ZSH_CUSTOM/themes/powerlevel10k pull; sudo apt update; npm -g outdated; apt list --upgradable; sudo apt full-upgrade; npm -g update'
 
 autoload -Uz compinit
 compinit
