@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo "${GREEN}Atualizando Tema Powerlevel10k...${NC}"
+git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k pull
+echo "${GREEN}------------${NC}\n"
+
+echo "${GREEN}Atualizando Advanced Package Tool (APT)...${NC}"
+sudo apt update
+echo "${GREEN}Os pacotes abaixo possuem atualizações:${NC}"
+apt list --upgradable
+echo "${GREEN}Atualizando todos os pacotes...${NC}"
+sudo apt full-upgrade
+echo "${GREEN}------------${NC}\n"
+
+echo "${GREEN}Os pacotes globais NPM abaixo possuem atualizações:${NC}"
+npm -g outdated
+echo "${GREEN}Atualizando os pacotes globais NPM...${NC}"
+npm -g update
+echo "${GREEN}------------${NC}"

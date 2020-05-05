@@ -1,0 +1,2 @@
+echo $($ZSH_CUSTOM)
+echo $HOME
