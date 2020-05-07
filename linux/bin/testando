@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo "oi"
+nvm current
+if [ $(npm -g outdated | wc -l) -gt 0 ]; then
+    echo "muitas linhas"
+else
+    echo "nenhuma linha"
+fi

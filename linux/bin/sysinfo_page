@@ -10,8 +10,7 @@ TIME_STAMP="Updated on $RIGHT_NOW by $USER"
 
 ##### Functions
 
-system_info()
-{
+system_info() {
     # Find any release files in /etc
 
     if ls /etc/*release 1>/dev/null 2>&1; then
@@ -29,31 +28,25 @@ system_info()
         echo "</pre>"
     fi
 
-}   # end of system_info
+} # end of system_info
 
-
-show_uptime()
-{
+show_uptime() {
     echo "<h2>System uptime</h2>"
     echo "<pre>"
     uptime
     echo "</pre>"
 
-}   # end of show_uptime
+} # end of show_uptime
 
-
-drive_space()
-{
+drive_space() {
     echo "<h2>Filesystem space</h2>"
     echo "<pre>"
     df
     echo "</pre>"
 
-}   # end of drive_space
+} # end of drive_space
 
-
-home_space()
-{
+home_space() {
     echo "<h2>Home directory space by user</h2>"
     echo "<pre>"
     format="%8s%10s%10s   %-s\n"
@@ -72,10 +65,9 @@ home_space()
     done
     echo "</pre>"
 
-}   # end of home_space
+} # end of home_space
 
-env_vars()
-{
+env_vars() {
     echo "<h2>Environment Variables</h2>"
     echo "<hr>"
     echo "<pre>"
@@ -84,9 +76,8 @@ env_vars()
     echo "<hr>"
 }
 
-write_page()
-{
-    cat <<- _EOF_
+write_page() {
+    cat <<-_EOF_
     <html>
         <head>
         <meta charset="utf-8">
@@ -110,11 +101,9 @@ _EOF_
 
 }
 
-usage()
-{
+usage() {
     echo "usage: sysinfo_page [[[-f file ] [-i]] | [-h]]"
 }
-
 
 ##### Main
 
@@ -123,27 +112,31 @@ filename=~/sysinfo_page.html
 
 while [ "$1" != "" ]; do
     case $1 in
-        -f | --file )           shift
-                                filename=$1
-                                ;;
-        -i | --interactive )    interactive=1
-                                ;;
-        -h | --help )           usage
-                                exit
-                                ;;
-        * )                     usage
-                                exit 1
+    -f | --file)
+        shift
+        filename=$1
+        ;;
+    -i | --interactive)
+        interactive=1
+        ;;
+    -h | --help)
+        usage
+        exit
+        ;;
+    *)
+        usage
+        exit 1
+        ;;
     esac
     shift
 done
 
-
 # Test code to verify command line processing
 
 if [ "$interactive" = "1" ]; then
-	echo "interactive is on"
+    echo "interactive is on"
 else
-	echo "interactive is off"
+    echo "interactive is off"
 fi
 echo "output file = $filename"
 
@@ -169,5 +162,5 @@ fi
 
 # Write page (comment out until testing is complete)
 
-write_page > $filename
+write_page >$filename
 cp -v ~/bin/style.css $(dirname "$filename")
