@@ -8,6 +8,7 @@ NC='\033[0m' # No Color
 
 echo "${GREEN}Atualizando Tema Powerlevel10k...${NC}"
 git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k pull
+git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k diff master@{1} master
 echo "${GREEN}------------${NC}\n"
 
 echo "${GREEN}Verificando atualizações de pacotes globais NPM:${NC}"
@@ -39,4 +40,9 @@ if [ $(apt list --upgradable | wc -l) -gt 1 ]; then
 else
     echo "Não havia atualizações"
 fi
+echo "${GREEN}------------${NC}\n"
+
+echo "${GREEN}Verificando atualizações da Snap Store..${NC}"
+snap refresh
+snap changes
 echo "${GREEN}------------${NC}\n"
