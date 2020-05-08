@@ -1,48 +1,90 @@
 #!/bin/zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# update - A script to update everything at once
+
+##### Constants
 
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo "${GREEN}Atualizando Tema Powerlevel10k...${NC}"
-git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k pull
-git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k diff master@{1} master
-echo "${GREEN}------------${NC}\n"
+main() {
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-echo "${GREEN}Verificando atualizações de pacotes globais NPM:${NC}"
-if [ $(npm -g outdated | wc -l) -gt 0 ]; then
-    echo "${GREEN}Atualizando os pacotes globais NPM...${NC}"
-    npm -g update
-else
-    echo "Não havia atualizações"
+    echo "${GREEN}Atualizando Tema Powerlevel10k...${NC}"
+    git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k pull
+    echo "${GREEN}------------${NC}\n"
+
+    echo "${GREEN}Verificando atualizações de pacotes globais NPM:${NC}"
+    if [ $(npm -g outdated | wc -l) -gt 0 ]; then
+        echo "${GREEN}Atualizando os pacotes globais NPM...${NC}"
+        npm -g update
+    else
+        echo "Não havia atualizações"
+    fi
+    echo "${GREEN}------------${NC}\n"
+
+    echo "${GREEN}Verificando atualizações do Node...${NC}"
+    if [ $(nvm ls-remote --no-colors | tail -1 | awk '{print $2}') = $(nvm current) ]; then
+        echo "Não havia atualizações"
+    else
+        CURRENT_NODE_VERSION=$(nvm current)
+        nvm install stable --reinstall-packages-from=${CURRENT_NODE_VERSION} --latest-npm
+    fi
+    echo "${GREEN}------------${NC}\n"
+
+    echo "${GREEN}Atualizando Repositórios do Advanced Package Tool (APT)...${NC}"
+    sudo apt update
+    echo "${GREEN}------------${NC}\n"
+
+    echo "${GREEN}Verificando atualizações de pacotes apt...${NC}"
+    if [ $(apt list --upgradable | wc -l) -gt 1 ]; then
+        echo "${GREEN}Atualizando pacotes...${NC}"
+        sudo apt full-upgrade
+    else
+        echo "Não havia atualizações"
+    fi
+    echo "${GREEN}------------${NC}\n"
+
+    echo "${GREEN}Verificando atualizações da Snap Store..${NC}"
+    snap refresh
+    echo "${GREEN}------------${NC}\n"
+}
+
+usage() {
+    echo "usage: update [[-d] | [--display-diff] | [-h]]"
+}
+
+##### Main
+
+showdiff=
+
+while [ "$1" != "" ]; do
+    case $1 in
+    -d | --display-diff)
+        showdiff=1
+        ;;
+    -h | --help)
+        usage
+        exit
+        ;;
+    *)
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+done
+
+# Run updates
+main
+
+if [ "$showdiff" = "1" ]; then
+    echo "${GREEN}Mudanças no Powerlevel10k:${NC}"
+    git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k diff master@{1} master
+    echo "${GREEN}------------${NC}\n"
+
+    echo "${GREEN}Mudanças da Snap Store:${NC}"
+    snap changes
+    echo "${GREEN}------------${NC}\n"
 fi
-echo "${GREEN}------------${NC}\n"
-
-echo "${GREEN}Verificando atualizações do Node...${NC}"
-if [ $(nvm ls-remote --no-colors | tail -1 | awk '{print $2}') = $(nvm current) ]; then
-    echo "Não havia atualizações"
-else
-    CURRENT_NODE_VERSION=$(nvm current)
-    nvm install stable --reinstall-packages-from=${CURRENT_NODE_VERSION} --latest-npm
-fi
-echo "${GREEN}------------${NC}\n"
-
-echo "${GREEN}Atualizando Repositórios do Advanced Package Tool (APT)...${NC}"
-sudo apt update
-echo "${GREEN}------------${NC}\n"
-
-echo "${GREEN}Verificando atualizações de pacotes apt...${NC}"
-if [ $(apt list --upgradable | wc -l) -gt 1 ]; then
-    echo "${GREEN}Atualizando pacotes...${NC}"
-    sudo apt full-upgrade
-else
-    echo "Não havia atualizações"
-fi
-echo "${GREEN}------------${NC}\n"
-
-echo "${GREEN}Verificando atualizações da Snap Store..${NC}"
-snap refresh
-snap changes
-echo "${GREEN}------------${NC}\n"
