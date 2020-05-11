@@ -52,17 +52,41 @@ main() {
 }
 
 usage() {
-    echo "usage: update [[-d] | [--display-diff] | [-h]]"
+    cat <<-_EOF_
+    Usage: update [OPTION]
+    Updates the following:
+    - Oh-my-zsh Powerlevel 10k theme
+    - NPM Global Packages
+    - Node
+    - APT Packages
+    - Snap Store Apps
+
+    OPTIONS:
+    -w, --workspace            Does a git pull, 
+                               removes branchs that no longer exist on the remote, 
+                               deletes all merged branches.
+    -W, --only-work            Execute only the updates that [--workspace | -w] does
+    -d, --display-diff         Displays git diff @{1} results for updates and workspace updates
+    -h, --help                 Displays this usage message
+_EOF_
 }
 
 ##### Main
 
 showdiff=
+work=
+onlywork=
 
 while [ "$1" != "" ]; do
     case $1 in
     -d | --display-diff)
         showdiff=1
+        ;;
+    -w | --workspace)
+        work=1
+        ;;
+    -W | --only-work)
+        onlywork=1
         ;;
     -h | --help)
         usage
@@ -77,14 +101,52 @@ while [ "$1" != "" ]; do
 done
 
 # Run updates
-main
+if [ "$onlywork" = "1" ]; then
+    work=1
+else
+    main
+fi
+
+if [ "$work" = "1" ]; then
+    echo "${GREEN}Atualizando projetos do trabalho${NC}"
+    cd ~/dev/pjempdft
+    git pull -p
+    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    cd ~/dev/neosispro-api
+    git pull -p
+    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    cd ~/dev/neosispro-web
+    git pull -p
+    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    cd ~/dev/mobile-api
+    git pull -p
+    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    cd ~/dev/app
+    git pull -p
+    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    cd ~/dev/ambiente
+    git pull -p
+    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    echo "${GREEN}------------${NC}\n"
+fi
 
 if [ "$showdiff" = "1" ]; then
     echo "${GREEN}Mudanças no Powerlevel10k:${NC}"
-    git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k diff master@{1} master
+    git -C /home/xaxim/.oh-my-zsh/custom/themes/powerlevel10k diff @{1}
     echo "${GREEN}------------${NC}\n"
 
     echo "${GREEN}Mudanças da Snap Store:${NC}"
     snap changes
     echo "${GREEN}------------${NC}\n"
+
+    if [ "$work" = "1" ]; then
+        echo "${GREEN}Mudanças do trabalho:${NC}"
+        git -C ~/dev/pjempdft diff @{1}
+        git -C ~/dev/neosispro-api diff @{1}
+        git -C ~/dev/neosispro-web diff @{1}
+        git -C ~/dev/mobile-api diff @{1}
+        git -C ~/dev/app diff @{1}
+        git -C ~/dev/ambiente diff @{1}
+        echo "${GREEN}------------${NC}\n"
+    fi
 fi
