@@ -109,24 +109,61 @@ fi
 
 if [ "$work" = "1" ]; then
     echo "${GREEN}Atualizando projetos do trabalho${NC}"
+
+    echo "${GREEN}pjempdft:${NC}"
     cd ~/dev/pjempdft
     git pull -p
-    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    branches_to_delete=$(git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | wc -l)
+    if [ $((branches_to_delete)) -gt 0 ]; then
+        git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    fi
+    echo ""
+
+    echo "${GREEN}neosispro-api:${NC}"
     cd ~/dev/neosispro-api
     git pull -p
-    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    branches_to_delete=$(git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | wc -l)
+    if [ $((branches_to_delete)) -gt 0 ]; then
+        git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    fi
+    echo ""
+
+    echo "${GREEN}neosispro-web:${NC}"
     cd ~/dev/neosispro-web
     git pull -p
-    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    branches_to_delete=$(git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | wc -l)
+    if [ $((branches_to_delete)) -gt 0 ]; then
+        git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    fi
+    echo ""
+
+    echo "${GREEN}mobile-api:${NC}"
     cd ~/dev/mobile-api
     git pull -p
-    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    branches_to_delete=$(git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | wc -l)
+    if [ $((branches_to_delete)) -gt 0 ]; then
+        git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    fi
+    echo ""
+
+    echo "${GREEN}app:${NC}"
     cd ~/dev/app
     git pull -p
-    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    branches_to_delete=$(git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | wc -l)
+    if [ $((branches_to_delete)) -gt 0 ]; then
+        git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    fi
+    echo ""
+
+    echo "${GREEN}ambiente:${NC}"
     cd ~/dev/ambiente
     git pull -p
-    git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    branches_to_delete=$(git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | wc -l)
+    if [ $((branches_to_delete)) -gt 0 ]; then
+        git branch --no-color --merged | command grep -vE "^(\+|\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d
+    fi
+    echo ""
+
     echo "${GREEN}------------${NC}\n"
 fi
 
